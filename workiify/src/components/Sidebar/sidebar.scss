@@ -1,0 +1,33 @@
+.container-sidebar {
+    outline: 1px solid cyan;
+    padding : 50px;
+    font-size: 24px;
+
+    P{
+        color : rgb(195, 141, 158);
+    }
+
+    ul {
+        list-style: none;
+
+        li {
+            color: #501f3a;
+            cursor: pointer;
+            margin: 25px 0px 25px 0px;
+        }
+
+        li:hover{
+            color : rgb(195, 141, 158);
+            margin-left: 15px;
+            transition: 0.3s;
+        }
+    }
+
+    .top-sidebar {
+        outline: 1px solid violet;
+
+        ul {
+            li {}
+        }
+    }
+}

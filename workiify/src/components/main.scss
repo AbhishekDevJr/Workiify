@@ -1,4 +1,13 @@
 .container-main-component{
     max-width: 1200px;
+    min-width: 1200px;
+    outline : 1px solid red;
+    min-height: 650px;
+    max-height: 650px;
     margin: 0 auto;
+
+    .container-section{
+        display : flex;
+        justify-content: space-between;
+    }
 }
