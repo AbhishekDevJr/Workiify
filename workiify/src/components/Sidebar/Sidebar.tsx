@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import './sidebar.scss';
 import { today, week } from '../../Features/mainRenderSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button, Modal } from 'antd';
+import { byTodo, byNote, byProject } from '../../Features/modalRenderSlice';
 
 type dataDummy = {
     name: string,
@@ -42,6 +43,8 @@ const dummyNotes: dataDummy[] = [
 function Sidebar() {
     const dispatch = useDispatch();
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const modalState = useSelector((state) => (state));
+    console.log('Modal State-->', modalState);
 
     const handleSidebarTop = (e: React.MouseEvent<HTMLLIElement>): void => {
         console.log(e.currentTarget.textContent);
@@ -54,6 +57,19 @@ function Sidebar() {
 
     const handleModalClose = () => {
         setIsModalOpen(false);
+    }
+
+    const handleModalAdd = (e: React.MouseEvent<HTMLLIElement>): void => {
+        console.log('Modal------>', e.currentTarget.textContent);
+        if (e.currentTarget.textContent === 'Add To Do') {
+            dispatch(byTodo());
+        }
+        else if (e.currentTarget.textContent === 'Add Project') {
+            dispatch(byProject());
+        }
+        else if (e.currentTarget.textContent === 'Add Note'){
+            dispatch(byNote());
+        }
     }
 
     return (
@@ -85,10 +101,24 @@ function Sidebar() {
                     +
                 </Button>
 
-                <Modal title="Basic Modal" open={isModalOpen} onCancel={handleModalClose}>
-                    <p>Some contents...</p>
-                    <p>Some contents...</p>
-                    <p>Some contents...</p>
+                <Modal title="" open={isModalOpen} onCancel={handleModalClose}>
+                    <div className='container-modal'>
+                        <header className='modal-header'>
+                            <h1>Create a new...</h1>
+                        </header>
+                        <div className='modal-main'>
+                            <div className='modal-main-left'>
+                                <ul>
+                                    <li onClick={handleModalAdd}>Add To Do</li>
+                                    <li onClick={handleModalAdd}>Add Project</li>
+                                    <li onClick={handleModalAdd}>Add Note</li>
+                                </ul>
+                            </div>
+                            <div className='modal-main-right'>
+
+                            </div>
+                        </div>
+                    </div>
                 </Modal>
             </div>
         </div>
