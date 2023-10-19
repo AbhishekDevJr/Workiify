@@ -1,14 +1,14 @@
 .container-sidebar {
     border-right: 1px solid #b9b9b9;
     background-color: #eee;
-    padding : 20px 50px 20px 50px;
+    padding: 20px 50px 20px 50px;
     // max-height: 700px;
     font-size: 24px;
-    display : flex;
+    display: flex;
     flex-direction: column;
 
-    P{
-        color : rgb(195, 141, 158);
+    P {
+        color: rgb(195, 141, 158);
     }
 
     ul {
@@ -21,14 +21,14 @@
             margin: 15px 0px 15px 0px;
         }
 
-        li:hover{
+        li:hover {
             color: #501f3a;
             text-decoration: underline;
         }
     }
 
-    .container-addBtn{
-        button{
+    .container-addBtn {
+        button {
             border: none;
             padding-bottom: 15px;
             min-height: 60px;
@@ -41,8 +41,65 @@
             box-shadow: 5px 5px 10px 2px #0000005e;
         }
 
-        button:hover{
+        button:hover {
             background-color: rgb(195, 141, 158) !important;
         }
     }
+}
+
+.container-modal {
+    header {
+        outline: 1px solid cyan;
+        background-color: #c38d9e;
+        color : #f7f7f7;
+        padding-left : 10px;
+        font-family: 'Lato', sans-serif;
+    }
+
+    li{
+        list-style: none;
+    }
+
+    .modal-main{
+        display : flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        font-family: 'Lato', sans-serif;
+
+        .modal-main-left{
+            outline : 1px solid violet;
+            padding : 10px 20px 10px 20px;
+            background-color: #eee;
+            li{
+                margin : 5px 0px 5px 0px;
+                font-size: 18px;
+            }
+
+            li:hover{
+                cursor : pointer;
+                text-decoration: underline;
+                color :rgb(195, 141, 158); 
+            }
+        }
+
+        .modal-main-right{
+            outline : 1px solid gold;
+        }
+    }
+}
+
+.ant-modal-content{
+    position: relative;
+    padding: 0 !important;
+    svg{
+        color : #fff;
+        margin-top : -10px;
+    }
+}
+
+.ant-modal-footer{
+    position : absolute;
+    right: 0;
+    bottom : 10px;
 }

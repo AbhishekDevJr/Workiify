@@ -4,6 +4,7 @@ import { today, week } from '../../Features/mainRenderSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Modal } from 'antd';
 import { byTodo, byNote, byProject } from '../../Features/modalRenderSlice';
+import { Input } from 'antd';
 
 type dataDummy = {
     name: string,
@@ -43,8 +44,9 @@ const dummyNotes: dataDummy[] = [
 function Sidebar() {
     const dispatch = useDispatch();
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const modalState = useSelector((state) => (state));
+    const modalState = useSelector((state: any) => (state));
     console.log('Modal State-->', modalState);
+    const { TextArea } = Input;
 
     const handleSidebarTop = (e: React.MouseEvent<HTMLLIElement>): void => {
         console.log(e.currentTarget.textContent);
@@ -67,7 +69,7 @@ function Sidebar() {
         else if (e.currentTarget.textContent === 'Add Project') {
             dispatch(byProject());
         }
-        else if (e.currentTarget.textContent === 'Add Note'){
+        else if (e.currentTarget.textContent === 'Add Note') {
             dispatch(byNote());
         }
     }
@@ -115,7 +117,24 @@ function Sidebar() {
                                 </ul>
                             </div>
                             <div className='modal-main-right'>
+                                {modalState?.modalRender?.byTodo &&
+                                    (<div className='container-add-todo'>
+                                        Add Todo Details
+                                        <Input placeholder="Basic usage" />
+                                        <TextArea placeholder="Autosize height based on content lines" autoSize />
+                                    </div>)}
 
+                                {modalState?.modalRender?.byProject && (
+                                    <div className = 'container-add-project'>
+                                        Add Project Details
+                                    </div>
+                                )}
+
+                                {modalState?.modalRender?.byNote && (
+                                    <div className = 'container-add-note'>
+                                        Add Note Details
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
