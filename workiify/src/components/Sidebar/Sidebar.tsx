@@ -119,19 +119,24 @@ function Sidebar() {
                             <div className='modal-main-right'>
                                 {modalState?.modalRender?.byTodo &&
                                     (<div className='container-add-todo'>
-                                        Add Todo Details
-                                        <Input placeholder="Basic usage" />
-                                        <TextArea placeholder="Autosize height based on content lines" autoSize />
+                                        <div className='todo-top'>
+                                            <Input placeholder="Title: Pay Bills" />
+                                            <TextArea placeholder="Details: e.g Internet, Phone, Rent" autoSize />
+                                        </div>
+
+                                        <div className = 'todo-bottom'>
+                                            <input type = 'date' />
+                                        </div>
                                     </div>)}
 
                                 {modalState?.modalRender?.byProject && (
-                                    <div className = 'container-add-project'>
+                                    <div className='container-add-project'>
                                         Add Project Details
                                     </div>
                                 )}
 
                                 {modalState?.modalRender?.byNote && (
-                                    <div className = 'container-add-note'>
+                                    <div className='container-add-note'>
                                         Add Note Details
                                     </div>
                                 )}

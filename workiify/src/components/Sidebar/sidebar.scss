@@ -48,6 +48,9 @@
 }
 
 .container-modal {
+    min-width: 900px;
+    // min-height: 500px;
+    background-color: #fff;
     header {
         outline: 1px solid cyan;
         background-color: #c38d9e;
@@ -61,6 +64,7 @@
     }
 
     .modal-main{
+        // padding : 0px 150px 0px 150px;
         display : flex;
         flex-direction: row;
         justify-content: space-between;
@@ -70,7 +74,9 @@
         .modal-main-left{
             outline : 1px solid violet;
             padding : 10px 20px 10px 20px;
+            min-height: 500px;
             background-color: #eee;
+            flex : 0 0 30%;
             li{
                 margin : 5px 0px 5px 0px;
                 font-size: 18px;
@@ -85,11 +91,25 @@
 
         .modal-main-right{
             outline : 1px solid gold;
+            min-height : 500px;
+            flex : 0 0 70%;
+            padding-left : 1px;
+            input, textarea{
+                border : none;
+                font-family: 'Lato', sans-serif;
+                min-height : 50px;
+                font-size: 20px;
+            }
+
+            input:focus, textarea:focus{
+                box-shadow : none;
+            }
         }
     }
 }
 
 .ant-modal-content{
+    background-color: red;
     position: relative;
     padding: 0 !important;
     svg{
@@ -102,4 +122,8 @@
     position : absolute;
     right: 0;
     bottom : 10px;
+}
+
+.ant-modal{
+    min-width: 900px;
 }
