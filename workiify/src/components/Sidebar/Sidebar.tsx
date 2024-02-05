@@ -6,6 +6,9 @@ import { Button, Modal } from 'antd';
 import { byTodo, byNote, byProject } from '../../Features/modalRenderSlice';
 import { byHomeView, byNoteView, byProjectView } from '../../Features/projectRenderSlice';
 import { Input, DatePicker, Radio } from 'antd';
+import type { DatePickerProps } from 'antd';
+import type { RadioChangeEvent } from 'antd';
+import { addTodo } from '../../Features/createTodoSlice';
 
 type dataDummy = {
     name: string,
@@ -49,7 +52,15 @@ function Sidebar() {
     console.log('Modal State-->', modalState);
     const { TextArea } = Input;
     const [titleStatus, setTitleStatus] = useState<Boolean>(false);
-    const [descState, setDescStatus] = useState<Boolean>(false);
+    const [descStatus, setDescStatus] = useState<Boolean>(false);
+    const [dateStatus, setDateStatus] = useState<Boolean>(false);
+    const [radioStatus, setRadioStatus] = useState<Boolean>(true);
+    const [formData, setFormData] = useState({
+        title: '',
+        desc: '',
+        dueDate: '',
+        priority: 'LOW'
+    });
 
 
     const handleSidebarTop = (e: React.MouseEvent<HTMLLIElement>): void => {
@@ -90,22 +101,66 @@ function Sidebar() {
     const handleTitle = (e: React.ChangeEvent<HTMLInputElement>): void => {
         if (!/^[a-zA-Z0-9]+$/.test(e.target.value)) {
             setTitleStatus(false);
+            setFormData({ ...formData, title: '' });
         }
         else {
             setTitleStatus(true);
+            setFormData({ ...formData, title: e.target.value });
         }
     }
 
     const handleDesc = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
         if (!/^[a-zA-Z0-9]+$/.test(e.target.value)) {
             setDescStatus(false);
+            setFormData({ ...formData, desc: '' });
         }
         else {
             setDescStatus(true);
+            setFormData({ ...formData, desc: e.target.value });
         }
     }
 
-    const handleDate = () => {}
+    const handleDate: DatePickerProps['onChange'] = (date, dateString) => {
+        console.log('date, dateString------>', date, dateString);
+
+        if (dateString) {
+            setDateStatus(true);
+            setFormData({ ...formData, dueDate: dateString });
+        }
+        else {
+            setDateStatus(false);
+            setFormData({ ...formData, dueDate: '' });
+        }
+    }
+
+    const handleRadio = (e: RadioChangeEvent) => {
+        console.log('radio--------->', e.target.value);
+        if (e.target.value) {
+            setRadioStatus(true);
+            setFormData({ ...formData, priority: e.target.value });
+        }
+        else {
+            setRadioStatus(false);
+            setFormData({ ...formData, priority: '' });
+        }
+    }
+
+    const handleSubmit = () => {
+        if (titleStatus && descStatus && dateStatus && radioStatus) {
+            //Submit Form
+            dispatch(addTodo(formData));
+            setIsModalOpen(false);
+            setFormData({
+                title: '',
+                desc: '',
+                dueDate: '',
+                priority: 'LOW'
+            });
+        }
+        else {
+            alert('Please fill valid data.');
+        }
+    }
 
     return (
         <div className='container-sidebar'>
@@ -136,7 +191,7 @@ function Sidebar() {
                     +
                 </Button>
 
-                <Modal title="" open={isModalOpen} onCancel={handleModalClose}>
+                <Modal title="" open={isModalOpen} onCancel={handleModalClose} onOk={handleSubmit}>
                     <div className='container-modal'>
                         <header className='modal-header'>
                             <h1>Create a new...</h1>
@@ -153,21 +208,21 @@ function Sidebar() {
                                 {modalState?.modalRender?.byTodo &&
                                     (<div className='container-add-todo'>
                                         <div className='todo-top'>
-                                            <Input placeholder="Title: Pay Bills" onChange={handleTitle} />
-                                            <TextArea placeholder="Details: e.g Internet, Phone, Rent" autoSize onChange={handleDesc} />
+                                            <Input placeholder="Title: Pay Bills" onChange={handleTitle} required value={formData.title} />
+                                            <TextArea placeholder="Details: e.g Internet, Phone, Rent" autoSize onChange={handleDesc} required value={formData.desc} />
                                         </div>
 
                                         <div className='todo-bottom'>
                                             <div>
-                                                <p>Due Date:</p> <DatePicker placeholder='DD/MM/YYYY' onChange = {handleDate} />
+                                                <p>Due Date:</p> <DatePicker placeholder='DD/MM/YYYY' onChange={handleDate} />
                                             </div>
 
                                             <div>
                                                 <p>Priority:</p>
-                                                <Radio.Group defaultValue="a" buttonStyle="solid">
-                                                    <Radio.Button value="a">LOW</Radio.Button>
-                                                    <Radio.Button value="b">MEDIUM</Radio.Button>
-                                                    <Radio.Button value="c">HIGH</Radio.Button>
+                                                <Radio.Group defaultValue="LOW" buttonStyle="solid" onChange={handleRadio} value={formData.priority}>
+                                                    <Radio.Button value="LOW">LOW</Radio.Button>
+                                                    <Radio.Button value="MEDIUM">MEDIUM</Radio.Button>
+                                                    <Radio.Button value="HIGH">HIGH</Radio.Button>
                                                 </Radio.Group>
                                             </div>
                                         </div>

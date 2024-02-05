@@ -50,61 +50,66 @@
     min-width: 900px;
     // min-height: 500px;
     background-color: #fff;
+
     header {
         outline: 1px solid cyan;
         background-color: #c38d9e;
-        color : #f7f7f7;
-        padding-left : 10px;
+        color: #f7f7f7;
+        padding-left: 10px;
         font-family: 'Lato', sans-serif;
     }
 
-    li{
+    li {
         list-style: none;
     }
 
-    .modal-main{
+    .modal-main {
         // padding : 0px 150px 0px 150px;
-        display : flex;
+        display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
         font-family: 'Lato', sans-serif;
 
-        .modal-main-left{
-            outline : 1px solid violet;
-            padding : 10px 20px 10px 20px;
+        .modal-main-left {
+            outline: 1px solid violet;
+            padding: 10px 20px 10px 20px;
             min-height: 500px;
             background-color: #eee;
-            flex : 0 0 30%;
-            li{
-                margin : 5px 0px 5px 0px;
+            flex: 0 0 30%;
+
+            li {
+                margin: 5px 0px 5px 0px;
                 font-size: 18px;
             }
 
-            li:hover{
-                cursor : pointer;
+            li:hover {
+                cursor: pointer;
                 text-decoration: underline;
-                color :rgb(195, 141, 158); 
+                color: rgb(195, 141, 158);
             }
         }
 
-        .modal-main-right{
-            min-height : 500px;
-            flex : 0 0 70%;
-            padding-left : 1px;
-            input, textarea{
-                border : none;
+        .modal-main-right {
+            min-height: 500px;
+            flex: 0 0 70%;
+            padding-left: 1px;
+
+            input,
+            textarea {
+                border: none;
                 font-family: 'Lato', sans-serif;
-                min-height : 50px;
+                min-height: 50px;
                 font-size: 20px;
             }
 
-            input:focus, textarea:focus{
-                box-shadow : none;
+            input:focus,
+            textarea:focus {
+                box-shadow: none;
             }
 
-            .container-add-todo{
-                outline : 1px solid cyan;
+            .container-add-todo {
+                outline: 1px solid cyan;
                 padding: 20px;
                 display: flex;
                 flex-direction: column;
@@ -112,17 +117,17 @@
                 min-height: 500px;
             }
 
-            .todo-bottom{
+            .todo-bottom {
                 display: flex;
                 flex-direction: column;
                 gap: 20px;
 
-                div{
+                div {
                     display: flex;
                     align-items: center;
-                    gap : 10px;
+                    gap: 10px;
 
-                    p{
+                    p {
                         font-size: 20px;
                     }
                 }
@@ -131,22 +136,23 @@
     }
 }
 
-.ant-modal-content{
+.ant-modal-content {
     background-color: red;
     position: relative;
     padding: 0 !important;
-    svg{
-        color : #fff;
-        margin-top : -10px;
+
+    svg {
+        color: #fff;
+        margin-top: -10px;
     }
 }
 
-.ant-modal-footer{
-    position : absolute;
+.ant-modal-footer {
+    position: absolute;
     right: 0;
-    bottom : 10px;
+    bottom: 10px;
 }
 
-.ant-modal{
+.ant-modal {
     min-width: 900px;
 }
