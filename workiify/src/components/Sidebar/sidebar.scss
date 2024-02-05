@@ -30,12 +30,11 @@
     .container-addBtn {
         button {
             border: none;
-            padding-bottom: 15px;
             min-height: 60px;
             max-width: 60px;
             font-size: 50px;
-            display: grid;
-            place-content: center;
+            display: flex;
+            align-items: center;
             border-radius: 100%;
             background-color: rgb(195, 141, 158);
             box-shadow: 5px 5px 10px 2px #0000005e;
@@ -90,7 +89,6 @@
         }
 
         .modal-main-right{
-            outline : 1px solid gold;
             min-height : 500px;
             flex : 0 0 70%;
             padding-left : 1px;
@@ -103,6 +101,31 @@
 
             input:focus, textarea:focus{
                 box-shadow : none;
+            }
+
+            .container-add-todo{
+                outline : 1px solid cyan;
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                min-height: 500px;
+            }
+
+            .todo-bottom{
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+
+                div{
+                    display: flex;
+                    align-items: center;
+                    gap : 10px;
+
+                    p{
+                        font-size: 20px;
+                    }
+                }
             }
         }
     }

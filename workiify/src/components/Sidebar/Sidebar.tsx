@@ -4,7 +4,8 @@ import { today, week } from '../../Features/mainRenderSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Modal } from 'antd';
 import { byTodo, byNote, byProject } from '../../Features/modalRenderSlice';
-import { Input } from 'antd';
+import { byHomeView, byNoteView, byProjectView } from '../../Features/projectRenderSlice';
+import { Input, DatePicker, Radio } from 'antd';
 
 type dataDummy = {
     name: string,
@@ -47,10 +48,22 @@ function Sidebar() {
     const modalState = useSelector((state: any) => (state));
     console.log('Modal State-->', modalState);
     const { TextArea } = Input;
+    const [titleStatus, setTitleStatus] = useState<Boolean>(false);
+    const [descState, setDescStatus] = useState<Boolean>(false);
+
 
     const handleSidebarTop = (e: React.MouseEvent<HTMLLIElement>): void => {
         console.log(e.currentTarget.textContent);
+        dispatch(byHomeView());
         e.currentTarget.textContent === 'Today' ? (dispatch(today())) : (dispatch(week()));
+    }
+
+    const handleProjectSelection = (): void => {
+        dispatch(byProjectView());
+    }
+
+    const handleNoteSelection = (): void => {
+        dispatch(byNoteView());
     }
 
     const handleModal = () => {
@@ -74,6 +87,26 @@ function Sidebar() {
         }
     }
 
+    const handleTitle = (e: React.ChangeEvent<HTMLInputElement>): void => {
+        if (!/^[a-zA-Z0-9]+$/.test(e.target.value)) {
+            setTitleStatus(false);
+        }
+        else {
+            setTitleStatus(true);
+        }
+    }
+
+    const handleDesc = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
+        if (!/^[a-zA-Z0-9]+$/.test(e.target.value)) {
+            setDescStatus(false);
+        }
+        else {
+            setDescStatus(true);
+        }
+    }
+
+    const handleDate = () => {}
+
     return (
         <div className='container-sidebar'>
             <div className='top-sidebar'>
@@ -87,14 +120,14 @@ function Sidebar() {
             <div className='bottom-sidebar'>
                 <p>Projects</p>
                 <ul>
-                    {dummyProjects.map((item) => <li>{item.name}</li>)}
+                    {dummyProjects.map((item) => <li onClick={handleProjectSelection}>{item.name}</li>)}
                 </ul>
             </div>
 
             <div className='bottom-notes-container'>
                 <p>Notes</p>
                 <ul>
-                    {dummyNotes.map((item) => <li>{item.name}</li>)}
+                    {dummyNotes.map((item) => <li onClick={handleNoteSelection}>{item.name}</li>)}
                 </ul>
             </div>
 
@@ -120,12 +153,23 @@ function Sidebar() {
                                 {modalState?.modalRender?.byTodo &&
                                     (<div className='container-add-todo'>
                                         <div className='todo-top'>
-                                            <Input placeholder="Title: Pay Bills" />
-                                            <TextArea placeholder="Details: e.g Internet, Phone, Rent" autoSize />
+                                            <Input placeholder="Title: Pay Bills" onChange={handleTitle} />
+                                            <TextArea placeholder="Details: e.g Internet, Phone, Rent" autoSize onChange={handleDesc} />
                                         </div>
 
-                                        <div className = 'todo-bottom'>
-                                            <input type = 'date' />
+                                        <div className='todo-bottom'>
+                                            <div>
+                                                <p>Due Date:</p> <DatePicker placeholder='DD/MM/YYYY' onChange = {handleDate} />
+                                            </div>
+
+                                            <div>
+                                                <p>Priority:</p>
+                                                <Radio.Group defaultValue="a" buttonStyle="solid">
+                                                    <Radio.Button value="a">LOW</Radio.Button>
+                                                    <Radio.Button value="b">MEDIUM</Radio.Button>
+                                                    <Radio.Button value="c">HIGH</Radio.Button>
+                                                </Radio.Group>
+                                            </div>
                                         </div>
                                     </div>)}
 
