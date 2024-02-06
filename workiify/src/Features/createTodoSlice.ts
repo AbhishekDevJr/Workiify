@@ -23,7 +23,7 @@ export const createTodoSlice = createSlice({
             state.formData.push(action.payload);
         },
         removeTodo: (state, action) => {
-            state.formData = state.formData.filter((item) => item.title !== action.payload.title && item.desc !== action.payload.desc);
+            state.formData = state.formData.filter((item, index) => index !== action.payload);
         }
     }
 });

@@ -59,7 +59,7 @@ function Sidebar() {
         title: '',
         desc: '',
         dueDate: '',
-        priority: 'LOW'
+        priority: 'LOW' as string | string[]
     });
 
 
@@ -99,7 +99,7 @@ function Sidebar() {
     }
 
     const handleTitle = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        if (!/^[a-zA-Z0-9]+$/.test(e.target.value)) {
+        if (!/^[\w\-\s]+$/.test(e.target.value)) {
             setTitleStatus(false);
             setFormData({ ...formData, title: '' });
         }
@@ -110,13 +110,13 @@ function Sidebar() {
     }
 
     const handleDesc = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
-        if (!/^[a-zA-Z0-9]+$/.test(e.target.value)) {
-            setDescStatus(false);
-            setFormData({ ...formData, desc: '' });
-        }
-        else {
+        if (/^[\w\-\s]+$/.test(e.target.value)) {
             setDescStatus(true);
             setFormData({ ...formData, desc: e.target.value });
+        }
+        else {
+            setDescStatus(false);
+            setFormData({ ...formData, desc: '' });
         }
     }
 
@@ -125,7 +125,7 @@ function Sidebar() {
 
         if (dateString) {
             setDateStatus(true);
-            setFormData({ ...formData, dueDate: dateString });
+            setFormData({ ...formData, dueDate: String(dateString) });
         }
         else {
             setDateStatus(false);

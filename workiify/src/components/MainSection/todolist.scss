@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+
+.container-todolist{
+   font-family: 'Lato';
+   display: flex;
+   flex-direction: column;
+   margin : 20px;
+
+   .container-list{
+    display: flex;
+    justify-content: space-between;
+    padding : 10px 10px 10px 0;
+    margin-bottom: 10px;
+    background-color: #eee;
+
+    .task-info-left{
+        display: flex;
+        align-items: center;
+        gap : 20px;
+
+        p:last-child{
+            font-size: 18px;
+            // font-weight: 300;
+            color : #501f3a;
+        }
+
+        .priority-strip{
+            min-height: 100%;
+            // border-left: 3px solid red;
+        }
+    }
+
+    .task-info-right{
+        display: flex;
+        align-items: center;
+        gap : 10px;
+
+        .todo-details{
+            border: 1px solid #3ba395;
+            color : #3ba395;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 5px;
+        }
+
+        .todo-details:hover{
+            background-color: #3ba395;
+            color : #fff;
+        }
+
+        p{
+            color : #501f3a;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .btn-remove{
+            border: none;
+            background-color: transparent;
+            box-shadow: none;
+            display: grid;
+            place-items: center;
+        }
+    }
+   }
+}
+
+.container-modal-info{
+    padding : 40px;
+    color : #501f3a;
+    font-family: 'Lato';
+    background-color: #501f3a2c;
+
+    h1{
+        font-size: 40px;
+        font-weight: 500;
+        font-family: 'Lato';
+    }
+
+    p{
+        font-size: 18px;
+        font-weight: 600;
+
+        span{
+            font-weight: 500;
+        }
+    }
+
+    .contents-modal{
+        display: flex;
+        gap : 30px;
+
+        .contents-right{
+            p{
+                font-weight: 400;
+            }
+        }
+    }
+   }

@@ -52,7 +52,6 @@
     background-color: #fff;
 
     header {
-        outline: 1px solid cyan;
         background-color: #c38d9e;
         color: #f7f7f7;
         padding-left: 10px;
@@ -72,7 +71,6 @@
         font-family: 'Lato', sans-serif;
 
         .modal-main-left {
-            outline: 1px solid violet;
             padding: 10px 20px 10px 20px;
             min-height: 500px;
             background-color: #eee;
@@ -109,7 +107,6 @@
             }
 
             .container-add-todo {
-                outline: 1px solid cyan;
                 padding: 20px;
                 display: flex;
                 flex-direction: column;
