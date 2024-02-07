@@ -24,10 +24,13 @@ export const createTodoSlice = createSlice({
         },
         removeTodo: (state, action) => {
             state.formData = state.formData.filter((item, index) => index !== action.payload);
-        }
+        },
+        updateTodo: (state, action) => {
+            state.formData[action.payload.index] = action.payload.editedTodo;
+        },
     }
 });
 
-export const { addTodo, removeTodo } = createTodoSlice.actions;
+export const { addTodo, removeTodo, updateTodo } = createTodoSlice.actions;
 
 export default createTodoSlice.reducer;

@@ -49,7 +49,6 @@ function Sidebar() {
     const dispatch = useDispatch();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const modalState = useSelector((state: any) => (state));
-    console.log('Modal State-->', modalState);
     const { TextArea } = Input;
     const [titleStatus, setTitleStatus] = useState<Boolean>(false);
     const [descStatus, setDescStatus] = useState<Boolean>(false);
@@ -64,7 +63,6 @@ function Sidebar() {
 
 
     const handleSidebarTop = (e: React.MouseEvent<HTMLLIElement>): void => {
-        console.log(e.currentTarget.textContent);
         dispatch(byHomeView());
         e.currentTarget.textContent === 'Today' ? (dispatch(today())) : (dispatch(week()));
     }
@@ -86,7 +84,6 @@ function Sidebar() {
     }
 
     const handleModalAdd = (e: React.MouseEvent<HTMLLIElement>): void => {
-        console.log('Modal------>', e.currentTarget.textContent);
         if (e.currentTarget.textContent === 'Add To Do') {
             dispatch(byTodo());
         }
@@ -121,8 +118,6 @@ function Sidebar() {
     }
 
     const handleDate: DatePickerProps['onChange'] = (date, dateString) => {
-        console.log('date, dateString------>', date, dateString);
-
         if (dateString) {
             setDateStatus(true);
             setFormData({ ...formData, dueDate: String(dateString) });
@@ -134,7 +129,6 @@ function Sidebar() {
     }
 
     const handleRadio = (e: RadioChangeEvent) => {
-        console.log('radio--------->', e.target.value);
         if (e.target.value) {
             setRadioStatus(true);
             setFormData({ ...formData, priority: e.target.value });
@@ -156,6 +150,10 @@ function Sidebar() {
                 dueDate: '',
                 priority: 'LOW'
             });
+
+            setTitleStatus(false);
+            setDescStatus(false);
+            setDateStatus(false);
         }
         else {
             alert('Please fill valid data.');

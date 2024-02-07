@@ -90,7 +90,13 @@
         display: flex;
         gap : 30px;
 
+        .contents-left{
+            outline : 1px solid cyan;
+        }
+
         .contents-right{
+            display: flex;
+            flex-direction: column;
             p{
                 font-weight: 400;
             }

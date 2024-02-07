@@ -9,7 +9,6 @@ function MainSection() {
   const mainViewBy = useSelector((state: any) => state.mainView);
   const todoList = useSelector((state: any) => state.todoList.formData);
 
-  console.log('state--->', mainRender, mainViewBy, todoList);
   return (
     <div className='container-main-section'>
       {mainViewBy.byHome ? (mainRender.byToday ?
