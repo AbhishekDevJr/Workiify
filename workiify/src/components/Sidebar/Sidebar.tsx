@@ -9,6 +9,7 @@ import { Input, DatePicker, Radio } from 'antd';
 import type { DatePickerProps } from 'antd';
 import type { RadioChangeEvent } from 'antd';
 import { addTodo } from '../../Features/createTodoSlice';
+import { createProject, selectedProject } from '../../Features/createProjectSlice';
 
 type dataDummy = {
     name: string,
@@ -60,6 +61,10 @@ function Sidebar() {
         dueDate: '',
         priority: 'LOW' as string | string[]
     });
+    const [currentType, setCurrentType] = useState<String>('TODO');
+    const projectData = useSelector((state: any) => state.projectList.projectData);
+
+    console.log('projectData ---------->', projectData);
 
 
     const handleSidebarTop = (e: React.MouseEvent<HTMLLIElement>): void => {
@@ -67,8 +72,10 @@ function Sidebar() {
         e.currentTarget.textContent === 'Today' ? (dispatch(today())) : (dispatch(week()));
     }
 
-    const handleProjectSelection = (): void => {
+    const handleProjectSelection = (index: number): void => {
+        console.log('projectData[index]------------>', projectData[index]);
         dispatch(byProjectView());
+        dispatch(selectedProject(projectData[index]));
     }
 
     const handleNoteSelection = (): void => {
@@ -84,13 +91,17 @@ function Sidebar() {
     }
 
     const handleModalAdd = (e: React.MouseEvent<HTMLLIElement>): void => {
+        console.log('ModalAdd----------->', e.currentTarget.textContent);
         if (e.currentTarget.textContent === 'Add To Do') {
+            setCurrentType('TODO');
             dispatch(byTodo());
         }
         else if (e.currentTarget.textContent === 'Add Project') {
+            setCurrentType('PROJECT');
             dispatch(byProject());
         }
         else if (e.currentTarget.textContent === 'Add Note') {
+            setCurrentType('NOTE');
             dispatch(byNote());
         }
     }
@@ -140,9 +151,19 @@ function Sidebar() {
     }
 
     const handleSubmit = () => {
+        console.log('FormData------->', formData, currentType);
         if (titleStatus && descStatus && dateStatus && radioStatus) {
             //Submit Form
-            dispatch(addTodo(formData));
+            if (currentType === 'TODO') {
+                dispatch(addTodo(formData));
+            } else if (currentType === 'PROJECT') {
+                console.log('Dispatch Form Data--------->', formData);
+                dispatch(createProject(formData));
+            }
+            // else {
+            //     dispatch(addNote(formData));
+            // }
+
             setIsModalOpen(false);
             setFormData({
                 title: '',
@@ -173,7 +194,7 @@ function Sidebar() {
             <div className='bottom-sidebar'>
                 <p>Projects</p>
                 <ul>
-                    {dummyProjects.map((item) => <li onClick={handleProjectSelection}>{item.name}</li>)}
+                    {projectData.map((item: any, index: number) => <li onClick={() => handleProjectSelection(index)}>{item.title}</li>)}
                 </ul>
             </div>
 
@@ -226,11 +247,27 @@ function Sidebar() {
                                         </div>
                                     </div>)}
 
-                                {modalState?.modalRender?.byProject && (
-                                    <div className='container-add-project'>
-                                        Add Project Details
+                                {modalState?.modalRender?.byProject && (<div className='container-add-todo container-add-projects'>
+                                    <div className='todo-top project-top'>
+                                        <Input placeholder="Title: Project Title" onChange={handleTitle} required value={formData.title} />
+                                        <TextArea placeholder="Details: Project Details" autoSize onChange={handleDesc} required value={formData.desc} />
                                     </div>
-                                )}
+
+                                    <div className='todo-bottom project-bottom'>
+                                        <div>
+                                            <p>Due Date:</p> <DatePicker placeholder='DD/MM/YYYY' onChange={handleDate} />
+                                        </div>
+
+                                        <div>
+                                            <p>Priority:</p>
+                                            <Radio.Group defaultValue="LOW" buttonStyle="solid" onChange={handleRadio} value={formData.priority}>
+                                                <Radio.Button value="LOW">LOW</Radio.Button>
+                                                <Radio.Button value="MEDIUM">MEDIUM</Radio.Button>
+                                                <Radio.Button value="HIGH">HIGH</Radio.Button>
+                                            </Radio.Group>
+                                        </div>
+                                    </div>
+                                </div>)}
 
                                 {modalState?.modalRender?.byNote && (
                                     <div className='container-add-note'>

@@ -3,11 +3,15 @@ import './mainsection.scss';
 import { useSelector } from 'react-redux';
 import { Empty } from 'antd';
 import TodoList from './TodoList';
+import ProjectList from './ProjectList';
 
 function MainSection() {
   const mainRender = useSelector((state: any) => state.mainRender);
   const mainViewBy = useSelector((state: any) => state.mainView);
   const todoList = useSelector((state: any) => state.todoList.formData);
+  const selectedProject = useSelector((state: any) => state.projectList.selectedProject);
+
+  console.log('SelectedProject------------->', selectedProject);
 
   return (
     <div className='container-main-section'>
@@ -22,7 +26,7 @@ function MainSection() {
           :
           <Empty description='No Data Found' />) : (null)}
 
-      {mainViewBy.byProject ? (<div>Project Section View</div>) : (null)}
+      {mainViewBy.byProject ? (<ProjectList projectData={selectedProject} />) : (null)}
 
       {mainViewBy.byNote ? (<div>Note Section View</div>) : (null)}
     </div>
