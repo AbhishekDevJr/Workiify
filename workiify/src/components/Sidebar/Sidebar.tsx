@@ -16,21 +16,6 @@ type dataDummy = {
     desc: string
 };
 
-const dummyProjects: dataDummy[] = [
-    {
-        name: 'Project 1',
-        desc: ''
-    },
-    {
-        name: 'Project 2',
-        desc: ''
-    },
-    {
-        name: 'Project 3',
-        desc: ''
-    }
-];
-
 const dummyNotes: dataDummy[] = [
     {
         name: 'Note 1',
